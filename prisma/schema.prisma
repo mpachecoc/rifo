@@ -1,0 +1,68 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Prize {
+  id          Int      @id @default(autoincrement())
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @default(now())
+  name        String
+  description String?
+  image       String?
+  projectId   Int
+  Project     Project  @relation(fields: [projectId], references: [id])
+  Ticket      Ticket?
+}
+
+model Project {
+  id          Int             @id @default(autoincrement())
+  createdAt   DateTime        @default(now())
+  updatedAt   DateTime        @default(now())
+  name        String
+  description String?
+  price       Int
+  drawDate    DateTime
+  image       String?
+  ownerId     Int
+  slug        String          @unique
+  User        User            @relation(fields: [ownerId], references: [id])
+  Prize       Prize[]
+  Images      ProjectImages[]
+  Ticket      Ticket[]
+}
+
+model ProjectImages {
+  id        Int     @id @default(autoincrement())
+  name      String
+  projectId Int
+  Project   Project @relation(fields: [projectId], references: [id])
+}
+
+model Ticket {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+  ci        String
+  name      String
+  phone     Int
+  paid      Boolean  @default(true)
+  projectId Int
+  prizeId   Int?     @unique
+  ticketId  Int
+  Prize     Prize?   @relation(fields: [prizeId], references: [id])
+  Project   Project  @relation(fields: [projectId], references: [id])
+}
+
+model User {
+  id       Int       @id @default(autoincrement())
+  email    String    @unique
+  name     String?
+  password String
+  phone    Int?
+  Project  Project[]
+}

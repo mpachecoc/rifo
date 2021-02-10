@@ -1,0 +1,163 @@
+.container {
+  width: 100%;
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+.container h1 {
+  color: #333333;
+}
+
+.tableContainer {
+  margin-top: 10px;
+}
+
+.tableContainer a.newIcon {
+  float: right;
+  font-weight: 500;
+  text-decoration: underline;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.tableContainer a.newIcon svg {
+  margin-right: 5px;
+}
+
+.tableContainer table {
+  width: 100%;
+  border-spacing: 0 8px;
+}
+
+.tableContainer table th {
+  color: #333333;
+  font-weight: normal;
+  padding: 20px 32px;
+  text-align: left;
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.tableContainer table td {
+  padding: 20px 32px;
+  border: 0;
+  background: #fff;
+  font-size: 16px;
+  font-weight: normal;
+  color: #969cb3;
+}
+
+.tableContainer table td.tableImage img {
+  width: 65px;
+  height: 65px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.tableContainer table td.tableTitle {
+  color: #363f5f;
+}
+
+.tableContainer table td.actionIcons svg {
+  cursor: pointer;
+}
+
+.tableContainer table td.actionIcons a {
+  margin-right: 5px;
+}
+
+.tableContainer table td:first-child {
+  border-radius: 8px 0 0 8px;
+}
+
+.tableContainer table td:last-child {
+  border-radius: 0 8px 8px 0;
+}
+
+
+/* Mobile */
+@media (max-width: 700px) {
+  .container {
+    width: 700px;
+  }
+
+  .container h1 {
+    font-size: 2.7rem;
+  }
+
+  .tableContainer {
+    margin-top: 30px;
+  }
+
+  .tableContainer a.newIcon {
+    font-size: 28px;
+  }
+
+  .tableContainer a.newIcon svg {
+    width: 30px;
+    height: 30px;
+  }
+
+  .tableContainer table {
+    margin-bottom: 40px;
+  }
+
+  .tableContainer table,
+  .tableContainer thead,
+  .tableContainer tbody,
+  .tableContainer th,
+  .tableContainer td,
+  .tableContainer tr {
+    display: block;
+  }
+
+  .tableContainer table th,
+  .tableContainer table td {
+    font-size: 27px;
+  }
+
+  .tableContainer table td.tableImage {
+    text-align: center;
+  }
+
+  .tableContainer table td.tableImage img {
+    width: 110px;
+    height: 110px;
+  }
+
+  .tableContainer table th.centerxs,
+  .tableContainer table td.tableTitle{
+    text-align: center;
+  }
+
+	.tableContainer tr {
+    margin-bottom: 35px;
+  }
+
+  .tableContainer table td.actionIcons {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+  }
+
+  .tableContainer table td.actionIcons svg {
+    width: 33px;
+    height: 33px;
+  }
+
+  .tableContainer table td.actionIcons a {
+    margin-right: 30px;
+  }
+
+  .tableContainer table td:first-child {
+    border-radius: 15px 15px 0 0;
+  }
+
+  .tableContainer table td:last-child {
+    border-radius: 0 0 15px 15px;
+  }
+
+}

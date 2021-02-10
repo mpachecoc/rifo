@@ -1,0 +1,102 @@
+.container {
+  background: #29B6D1;
+  padding: 30px 0;
+}
+
+.containerExtended {
+  background: #29B6D1;
+  padding: 30px 0 120px;
+}
+
+.container header,
+.containerExtended header {
+  width: 1120px;
+  margin: 0 auto;
+  padding: 0 20px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.container header .backButton a,
+.containerExtended header .backButton a {
+  color: #ffffff;
+  font-weight: 500;
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.container header .backButton a svg,
+.containerExtended header .backButton a svg {
+  margin-right: 3px;
+}
+
+.container header .username,
+.containerExtended header .username {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.container header .username p,
+.containerExtended header .username p {
+  color: #ffffff;
+  font-weight: 500;
+  margin-left: 3px;
+  margin-right: 15px;
+}
+
+.container header .username button,
+.containerExtended header .username button {
+  background: transparent;
+  border: none;
+}
+
+/* Mobile */
+@media (max-width: 700px) {
+  .container {
+    width: 700px;
+    padding: 30px 15px;
+  }
+
+  .containerExtended {
+    width: 700px;
+    padding: 30px 15px 120px;
+
+  }
+
+  .container header,
+  .containerExtended header {
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  .container header .backButton a,
+  .containerExtended header .backButton a {
+    font-size: 30px;
+  }
+
+  .container header .backButton a svg,
+  .containerExtended header .backButton a svg {
+    width: 36px;
+    height: 36px;
+  }
+
+  .container header .username p,
+  .container header .username > svg,
+  .containerExtended header .username > svg,
+  .containerExtended header .username p {
+    display: none;
+  }
+
+  .container header .username button svg,
+  .containerExtended header .username button svg {
+    width: 36px;
+    height: 36px;
+  }
+}
