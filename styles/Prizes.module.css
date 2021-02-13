@@ -63,10 +63,7 @@
 
 .tableContainer table td.actionIcons svg {
   cursor: pointer;
-}
-
-.tableContainer table td.actionIcons a {
-  margin-right: 5px;
+  margin: 0 3px;
 }
 
 .tableContainer table td:first-child {
@@ -146,10 +143,6 @@
   .tableContainer table td.actionIcons svg {
     width: 33px;
     height: 33px;
-  }
-
-  .tableContainer table td.actionIcons a {
-    margin-right: 30px;
   }
 
   .tableContainer table td:first-child {

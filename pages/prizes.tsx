@@ -8,6 +8,7 @@ import { useProject } from '../hooks/project'
 import Header from '../components/Header'
 import styles from '../styles/Prizes.module.css'
 import SEO from '../components/SEO'
+import { Confirm, Toast } from '../config/toast'
 
 interface PrizeProps {
   id: number
@@ -40,11 +41,33 @@ const Prizes: React.FC = () => {
 
   // Delete Prize
   async function handlePrizeDelete(prizeId: number) {
-    await axios.delete(`api/prizes/${prizeId}`)
+    Confirm.fire({
+      text: '¿Está seguro(a) que desea borrar el registro?'
+    }).then(async result => {
+      if (result.isConfirmed) {
+        try {
+          await axios.delete(`api/prizes/${prizeId}`)
 
-    const prizesUpdated = prizes.filter(prize => prize.id !== prizeId)
+          const prizesUpdated = prizes.filter(prize => prize.id !== prizeId)
 
-    setPrizes(prizesUpdated)
+          setPrizes(prizesUpdated)
+
+          Toast.fire({
+            icon: 'success',
+            title: 'Ok',
+            text: '¡Premio borrado correctamente!'
+          })
+        } catch (err) {
+          Toast.fire({
+            icon: 'error',
+            title: 'Error',
+            text: '¡No se borro el premio, por favor intente de nuevo!'
+          })
+
+          console.log(err)
+        }
+      }
+    })
   }
 
   if (!prizes) {
@@ -91,11 +114,13 @@ const Prizes: React.FC = () => {
                   <td className={styles.tableTitle}>{prize.name}</td>
                   <td>{prize.description}</td>
                   <td className={styles.actionIcons}>
-                    <Link href="/project-dashboard">
-                      <a>
-                        <FiEdit size={18} color="#6b52da" />
-                      </a>
-                    </Link>
+                    <FiEdit
+                      size={18}
+                      color="#6b52da"
+                      onClick={() =>
+                        Toast.fire('Pronto', 'Estamos trabajando...', 'info')
+                      }
+                    />
                     <FiTrash2
                       size={18}
                       color="#da5252"

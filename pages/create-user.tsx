@@ -5,6 +5,7 @@ import axios from 'axios'
 import Header from '../components/Header'
 import styles from '../styles/CreateUser.module.css'
 import SEO from '../components/SEO'
+import { Toast } from '../config/toast'
 
 const CreateUser: React.FC = () => {
   const [name, setName] = useState('')
@@ -22,7 +23,12 @@ const CreateUser: React.FC = () => {
     setLoading(true)
 
     if (!email || !password) {
-      alert('Debe llenar el Correo Electrónico y la Contraseña')
+      Toast.fire({
+        icon: 'warning',
+        title: 'Alerta',
+        text: '¡Debe llenar el Correo y la Contraseña!'
+      })
+
       setLoading(false)
       return
     }
@@ -38,7 +44,12 @@ const CreateUser: React.FC = () => {
 
     setLoading(false)
 
-    alert('Usuario Creado Correctamente')
+    Toast.fire({
+      icon: 'success',
+      title: 'Ok',
+      text: '¡Usuario Creado Correctamente!'
+    })
+
     router.push('/')
   }
 

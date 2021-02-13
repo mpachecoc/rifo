@@ -7,6 +7,7 @@ import { useAuth } from '../hooks/auth'
 import Header from '../components/Header'
 import styles from '../styles/RegisterProject.module.css'
 import SEO from '../components/SEO'
+import { Toast } from '../config/toast'
 
 const RegisterProject: React.FC = () => {
   const [name, setName] = useState('')
@@ -48,7 +49,12 @@ const RegisterProject: React.FC = () => {
     setLoading(true)
 
     if (!name || !price || !drawDate) {
-      alert('Campos vacios')
+      Toast.fire({
+        icon: 'warning',
+        title: 'Alerta',
+        text: '¡Campos Vacios!'
+      })
+
       setLoading(false)
       return
     }
@@ -100,13 +106,21 @@ const RegisterProject: React.FC = () => {
 
       setLoading(false)
 
-      alert('Se creó el proyecto correctamente.')
+      Toast.fire({
+        icon: 'success',
+        title: 'Ok',
+        text: '¡Proyecto creado correctamente!'
+      })
 
       router.replace('/projects')
     } catch (err) {
       setLoading(false)
 
-      alert('No se pudo crear el proyecto, por favor intente de nuevo.')
+      Toast.fire({
+        icon: 'error',
+        title: 'Error',
+        text: '¡No se creó el proyecto, por favor intente de nuevo!'
+      })
 
       console.log(err)
     }

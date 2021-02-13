@@ -6,6 +6,7 @@ import { useProject } from '../hooks/project'
 import Header from '../components/Header'
 import styles from '../styles/RegisterTicket.module.css'
 import SEO from '../components/SEO'
+import { Toast } from '../config/toast'
 
 const RegisterTicket: React.FC = () => {
   const [ci, setCi] = useState('')
@@ -29,7 +30,12 @@ const RegisterTicket: React.FC = () => {
     setLoading(true)
 
     if (!ci || !name || !phone) {
-      alert('Campos vacios')
+      Toast.fire({
+        icon: 'warning',
+        title: 'Alerta',
+        text: '¡Campos Vacios!'
+      })
+
       setLoading(false)
       return
     }
@@ -43,17 +49,33 @@ const RegisterTicket: React.FC = () => {
       numberOfTickets
     }
 
-    await axios.post('/api/tickets', data)
+    try {
+      await axios.post('/api/tickets', data)
 
-    setCi('')
-    setName('')
-    setPhone('')
-    setIsPaid(true)
-    setNumberOfTickets('1')
+      setCi('')
+      setName('')
+      setPhone('')
+      setIsPaid(true)
+      setNumberOfTickets('1')
 
-    setLoading(false)
+      setLoading(false)
 
-    alert('Ticket(s) registrados correctamente.')
+      Toast.fire({
+        icon: 'success',
+        title: 'Ok',
+        text: '¡Ticket(s) registrados correctamente!'
+      })
+    } catch (err) {
+      setLoading(false)
+
+      Toast.fire({
+        icon: 'error',
+        title: 'Error',
+        text: '¡No se pudo registrar, por favor intente de nuevo!'
+      })
+
+      console.log(err)
+    }
   }
 
   return (

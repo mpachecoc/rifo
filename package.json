@@ -21,7 +21,8 @@
     "react-dom": "17.0.1",
     "react-dom-confetti": "^0.2.0",
     "react-icons": "^4.1.0",
-    "react-to-print": "^2.12.2"
+    "react-to-print": "^2.12.2",
+    "sweetalert2": "^10.14.1"
   },
   "devDependencies": {
     "@prisma/cli": "2.15.0",

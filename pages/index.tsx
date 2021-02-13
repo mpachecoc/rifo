@@ -5,6 +5,7 @@ import { useRouter } from 'next/router'
 import { useAuth } from '../hooks/auth'
 import styles from '../styles/Home.module.css'
 import SEO from '../components/SEO'
+import { Toast } from '../config/toast'
 
 import RifoLogo from '../assets/logo-rifo.svg'
 import RifoLanding from '../assets/landing-md.svg'
@@ -24,7 +25,12 @@ const Home: React.FC = () => {
     setLoading(true)
 
     if (!email && !password) {
-      alert('Campos vacios')
+      Toast.fire({
+        icon: 'warning',
+        title: 'Alerta',
+        text: '¡Campos Vacios!'
+      })
+
       setLoading(false)
       return
     }
@@ -42,7 +48,12 @@ const Home: React.FC = () => {
       console.log(error)
 
       setLoading(false)
-      alert('Credenciales Invalidas')
+
+      Toast.fire({
+        icon: 'error',
+        title: 'Error',
+        text: '¡Credenciales Invalidas!'
+      })
     }
   }
 

@@ -9,6 +9,7 @@ import { useProject } from '../hooks/project'
 import Header from '../components/Header'
 import styles from '../styles/Draw.module.css'
 import SEO from '../components/SEO'
+import { Confirm } from '../config/toast'
 
 interface PrizeProps {
   id: number
@@ -85,47 +86,59 @@ const Draw: React.FC = () => {
 
   // Draw All Prizes at once
   async function handleDrawAllPrizes() {
-    setLoadingDraw(true)
-    setTriggerConfetti(false)
+    Confirm.fire({
+      text: '¿Está seguro(a) que desea sortear los premios?'
+    }).then(async result => {
+      if (result.isConfirmed) {
+        setLoadingDraw(true)
+        setTriggerConfetti(false)
 
-    // Call draw winners
-    await axios.get(`/api/draws/project/${activeProjectId}/winners`)
+        // Call draw winners
+        await axios.get(`/api/draws/project/${activeProjectId}/winners`)
 
-    // Get again prizes with corresponding winners
-    axios
-      .get(`/api/draws/project/${activeProjectId}/prizes`)
-      .then(response => {
-        setTimeout(() => {
-          setPrizes(response.data)
-          setTriggerConfetti(true)
-          setLoadingDraw(false)
-        }, 3000)
-      })
-      .catch(error => console.log(error))
+        // Get again prizes with corresponding winners
+        axios
+          .get(`/api/draws/project/${activeProjectId}/prizes`)
+          .then(response => {
+            setTimeout(() => {
+              setPrizes(response.data)
+              setTriggerConfetti(true)
+              setLoadingDraw(false)
+            }, 3000)
+          })
+          .catch(error => console.log(error))
+      }
+    })
   }
 
   // Draw 1 Prize
   async function handleDrawOnePrize(prizeId: number) {
-    setLoadingDrawByPrize(true)
-    setLoadingPrizeId(prizeId)
-    setTriggerConfetti(false)
+    Confirm.fire({
+      text: '¿Está seguro(a) que desea sortear este premio?'
+    }).then(async result => {
+      if (result.isConfirmed) {
+        setLoadingDrawByPrize(true)
+        setLoadingPrizeId(prizeId)
+        setTriggerConfetti(false)
 
-    // Call draw winner
-    await axios.get(
-      `/api/draws/project/${activeProjectId}/prizes/${prizeId}/winner`
-    )
+        // Call draw winner
+        await axios.get(
+          `/api/draws/project/${activeProjectId}/prizes/${prizeId}/winner`
+        )
 
-    // Get again prizes with corresponding winners
-    axios
-      .get(`/api/draws/project/${activeProjectId}/prizes`)
-      .then(response => {
-        setTimeout(() => {
-          setPrizes(response.data)
-          setTriggerConfetti(true)
-          setLoadingDrawByPrize(false)
-        }, 3000)
-      })
-      .catch(error => console.log(error))
+        // Get again prizes with corresponding winners
+        axios
+          .get(`/api/draws/project/${activeProjectId}/prizes`)
+          .then(response => {
+            setTimeout(() => {
+              setPrizes(response.data)
+              setTriggerConfetti(true)
+              setLoadingDrawByPrize(false)
+            }, 3000)
+          })
+          .catch(error => console.log(error))
+      }
+    })
   }
 
   return (
