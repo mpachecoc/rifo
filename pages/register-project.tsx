@@ -49,6 +49,7 @@ const RegisterProject: React.FC = () => {
 
     if (!name || !price || !drawDate) {
       alert('Campos vacios')
+      setLoading(false)
       return
     }
 
@@ -186,7 +187,7 @@ const RegisterProject: React.FC = () => {
             {
               // eslint-disable-next-line multiline-ternary
               loading ? (
-                <button className={styles.saveButton} disabled>
+                <button className={styles.saveButtonLoading} disabled>
                   Guardando...
                 </button>
               ) : (

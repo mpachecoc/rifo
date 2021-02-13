@@ -12,13 +12,18 @@ const CreateUser: React.FC = () => {
   const [password, setPassword] = useState('')
   const [phone, setPhone] = useState('')
 
+  const [loading, setLoading] = useState(false)
+
   const router = useRouter()
 
   async function handleSubmit(event: FormEvent) {
     event.preventDefault()
 
+    setLoading(true)
+
     if (!email || !password) {
       alert('Debe llenar el Correo Electrónico y la Contraseña')
+      setLoading(false)
       return
     }
 
@@ -30,6 +35,9 @@ const CreateUser: React.FC = () => {
     }
 
     await axios.post('/api/users', data)
+
+    setLoading(false)
+
     alert('Usuario Creado Correctamente')
     router.push('/')
   }
@@ -85,9 +93,19 @@ const CreateUser: React.FC = () => {
                 />
               </div>
             </fieldset>
-            <button className={styles.saveButton} type="submit">
-              Registrar
-            </button>
+
+            {
+              // eslint-disable-next-line multiline-ternary
+              loading ? (
+                <button className={styles.saveButtonLoading} disabled>
+                  Registrando...
+                </button>
+              ) : (
+                <button className={styles.saveButton} type="submit">
+                  Registrar
+                </button>
+              )
+            }
           </form>
         </div>
       </div>

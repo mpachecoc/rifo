@@ -62,7 +62,7 @@ button.loginButton {
   border: 0;
   cursor: pointer;
   border-radius: 20px;
-  color: #FFFFFF;
+  color: #8D734B;
   font-weight: 800;
   background: #ffd666;
   float: right;
@@ -72,7 +72,21 @@ button.loginButton {
 }
 
 button.loginButton:hover {
-  opacity: 0.9;
+  background: #96FEFF;
+  color: #15C3D6;
+}
+
+button.loginButtonLoading {
+  margin-top: 16px;
+  width: 100px;
+  height: 36px;
+  border: 0;
+  border-radius: 20px;
+  font-weight: 800;
+  background: #96FEFF;
+  color: #15C3D6;
+  float: right;
+  margin-right: 20px;
 }
 
 a.register {
@@ -126,7 +140,8 @@ a.register:hover {
     margin-bottom: 5px;
   }
 
-  button.loginButton {
+  button.loginButton,
+  button.loginButtonLoading {
     width: 100%;
     height: 40px;
     font-size: 16px;

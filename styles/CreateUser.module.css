@@ -56,18 +56,33 @@ form.registerUserForm button.saveButton {
   border: 0;
   cursor: pointer;
   border-radius: 20px;
-  color: #FFFFFF;
-  font-weight: 800;
   background: #ffd666;
+  color: #8D734B;
+  font-weight: 800;
   float: right;
   margin-right: 20px;
   font-size: 16px;
 
-  transition: background-color 0.2s;
+  transition: background-color 0.1s;
 }
 
 form.registerUserForm button.saveButton:hover {
-  opacity: 0.9;
+  background: #96FEFF;
+  color: #15C3D6;
+}
+
+form.registerUserForm button.saveButtonLoading {
+  margin-top: 32px;
+  width: 150px;
+  height: 48px;
+  border: 0;
+  border-radius: 20px;
+  background: #96FEFF;
+  color: #15C3D6;
+  font-weight: 800;
+  float: right;
+  margin-right: 20px;
+  font-size: 16px;
 }
 
 
@@ -97,7 +112,8 @@ form.registerUserForm button.saveButton:hover {
     font-size: 26px;
   }
 
-  form.registerUserForm button.saveButton {
+  form.registerUserForm button.saveButton,
+  form.registerUserForm button.saveButtonLoading {
     width: 100%;
     height: 90px;
     font-size: 26px;

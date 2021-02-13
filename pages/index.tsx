@@ -13,14 +13,19 @@ const Home: React.FC = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
+  const [loading, setLoading] = useState(false)
+
   const { signIn } = useAuth()
   const router = useRouter()
 
   async function handleLogin(event: FormEvent) {
     event.preventDefault()
 
+    setLoading(true)
+
     if (!email && !password) {
       alert('Campos vacios')
+      setLoading(false)
       return
     }
 
@@ -30,9 +35,13 @@ const Home: React.FC = () => {
         password
       })
 
+      setLoading(false)
+
       router.push('/projects')
     } catch (error) {
       console.log(error)
+
+      setLoading(false)
       alert('Credenciales Invalidas')
     }
   }
@@ -70,9 +79,19 @@ const Home: React.FC = () => {
                   onChange={e => setPassword(e.target.value)}
                 />
               </div>
-              <button className={styles.loginButton} type="submit">
-                Ingresar
-              </button>
+
+              {
+                // eslint-disable-next-line multiline-ternary
+                loading ? (
+                  <button className={styles.loginButtonLoading} disabled>
+                    Cargando...
+                  </button>
+                ) : (
+                  <button className={styles.loginButton} type="submit">
+                    Ingresar
+                  </button>
+                )
+              }
             </fieldset>
           </form>
           <Link href="/create-user">

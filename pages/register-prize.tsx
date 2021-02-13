@@ -47,6 +47,7 @@ const RegisterPrize: React.FC = () => {
 
     if (!name) {
       alert('Debe llenar el nombre')
+      setLoading(false)
       return
     }
 
@@ -158,7 +159,7 @@ const RegisterPrize: React.FC = () => {
             {
               // eslint-disable-next-line multiline-ternary
               loading ? (
-                <button className={styles.saveButton} disabled>
+                <button className={styles.saveButtonLoading} disabled>
                   Guardando...
                 </button>
               ) : (

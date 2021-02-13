@@ -14,6 +14,8 @@ const RegisterTicket: React.FC = () => {
   const [isPaid, setIsPaid] = useState(true)
   const [numberOfTickets, setNumberOfTickets] = useState('1')
 
+  const [loading, setLoading] = useState(false)
+
   const { setVerifyToken } = useAuth()
   const { activeProjectId } = useProject()
 
@@ -24,8 +26,11 @@ const RegisterTicket: React.FC = () => {
   async function handleSubmit(event: FormEvent) {
     event.preventDefault()
 
+    setLoading(true)
+
     if (!ci || !name || !phone) {
       alert('Campos vacios')
+      setLoading(false)
       return
     }
 
@@ -45,6 +50,8 @@ const RegisterTicket: React.FC = () => {
     setPhone('')
     setIsPaid(true)
     setNumberOfTickets('1')
+
+    setLoading(false)
 
     alert('Ticket(s) registrados correctamente.')
   }
@@ -120,9 +127,19 @@ const RegisterTicket: React.FC = () => {
                 </div>
               </div>
             </fieldset>
-            <button className={styles.saveButton} type="submit">
-              Guardar
-            </button>
+
+            {
+              // eslint-disable-next-line multiline-ternary
+              loading ? (
+                <button className={styles.saveButtonLoading} disabled>
+                  Guardando...
+                </button>
+              ) : (
+                <button className={styles.saveButton} type="submit">
+                  Guardar
+                </button>
+              )
+            }
           </form>
         </div>
       </div>
