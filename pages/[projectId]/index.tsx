@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
 import { GetStaticProps, GetStaticPaths } from 'next'
 import { useRouter } from 'next/router'
-import { PrismaClient } from '@prisma/client'
 import { FiDollarSign, FiCalendar } from 'react-icons/fi'
 import { FaWhatsapp } from 'react-icons/fa'
 import { format } from 'date-fns'
 import es from 'date-fns/locale/es'
 
+import prisma from '../../config/prismaClient'
 import uploadConfig from '../../config/upload'
 import Header from '../../components/Header'
 import styles from '../../styles/ProjectInfo.module.css'
@@ -158,8 +158,6 @@ const ProjectInfo: React.FC<ProjectProps> = ({
 }
 
 export default ProjectInfo
-
-const prisma = new PrismaClient()
 
 export const getStaticPaths: GetStaticPaths = async () => {
   // Get last 20 created projects to generate statically at build time

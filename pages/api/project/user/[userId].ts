@@ -1,11 +1,9 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { PrismaClient } from '@prisma/client'
 import { format } from 'date-fns'
 import es from 'date-fns/locale/es'
 
+import prisma from '../../../../config/prismaClient'
 import uploadConfig from '../../../../config/upload'
-
-const prisma = new PrismaClient()
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export default async (request: NextApiRequest, response: NextApiResponse) => {
