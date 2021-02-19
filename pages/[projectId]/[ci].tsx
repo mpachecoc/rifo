@@ -1,11 +1,11 @@
 import React, { useRef } from 'react'
 import { GetStaticProps, GetStaticPaths } from 'next'
 import { useRouter } from 'next/router'
-import { PrismaClient } from '@prisma/client'
 import { FiUsers, FiDownload } from 'react-icons/fi'
 import { FaTicketAlt, FaGift } from 'react-icons/fa'
 import { useReactToPrint } from 'react-to-print'
 
+import prisma from '../../config/prismaClient'
 import Header from '../../components/Header'
 import styles from '../../styles/Tickets.module.css'
 import SEO from '../../components/SEO'
@@ -99,8 +99,6 @@ const Tickets: React.FC<TicketProps> = ({
 }
 
 export default Tickets
-
-const prisma = new PrismaClient()
 
 export const getStaticPaths: GetStaticPaths = async () => {
   // Return ticket IDs (on demand) according to buyers

@@ -1,8 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { PrismaClient } from '@prisma/client'
 import { hash } from 'bcryptjs'
 
-const prisma = new PrismaClient()
+import prisma from '../../../config/prismaClient'
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export default async (request: NextApiRequest, response: NextApiResponse) => {
