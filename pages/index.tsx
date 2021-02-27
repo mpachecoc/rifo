@@ -7,7 +7,7 @@ import styles from '../styles/Home.module.css'
 import SEO from '../components/SEO'
 import { Toast } from '../config/toast'
 
-import RifoLogo from '../assets/logo-rifo.svg'
+import RifoLogo from '../assets/logo-rifo-2.svg'
 import RifoLanding from '../assets/landing-md.svg'
 
 const Home: React.FC = () => {

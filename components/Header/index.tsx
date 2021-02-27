@@ -5,7 +5,7 @@ import { FaHandPaper } from 'react-icons/fa'
 
 import { useAuth } from '../../hooks/auth'
 import styles from './Header.module.css'
-import RifoLogo from '../../assets/logo-rifo.svg'
+import RifoLogo from '../../assets/logo-rifo-2.svg'
 
 interface HeaderProps {
   extended?: boolean
