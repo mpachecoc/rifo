@@ -49,3 +49,27 @@
 .container .layout a.register:hover {
   opacity: 0.8;
 }
+
+/* Mobile */
+@media (max-width: 700px) {
+  .container {
+    width: 700px;
+  }
+
+  .container .layout {
+    width: 100%;
+  }
+
+  .container .layout h2 {
+    font-size: 2.3rem;
+  }
+
+  .container .layout h2 svg {
+    width: 90px;
+    height: 90px;
+  }
+
+  .container .layout a.register {
+    font-size: 1.7rem;
+  }
+}
