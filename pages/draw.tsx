@@ -34,6 +34,7 @@ const Draw: React.FC = () => {
   const [loadingDrawByPrize, setLoadingDrawByPrize] = useState(false)
   const [loadingPrizeId, setLoadingPrizeId] = useState(0)
   const [triggerConfetti, setTriggerConfetti] = useState(false)
+  const [displayPhone, setDisplayPhone] = useState(false)
 
   const { setVerifyToken } = useAuth()
   const { activeProjectId, activeProjectName } = useProject()
@@ -223,6 +224,28 @@ const Draw: React.FC = () => {
                             CI. {prize.Ticket.ci}
                             <br />
                             {prize.Ticket.name}
+                            <br />
+                            {
+                              // eslint-disable-next-line multiline-ternary
+                              displayPhone ? (
+                                <>
+                                  {`Cel: ${prize.Ticket.phone}`}{' '}
+                                  <span
+                                    className={styles.displayWinnerPhone}
+                                    onClick={() => setDisplayPhone(false)}
+                                  >
+                                    Ocultar
+                                  </span>
+                                </>
+                              ) : (
+                                <span
+                                  className={styles.displayWinnerPhone}
+                                  onClick={() => setDisplayPhone(true)}
+                                >
+                                  Mostrar teléfono(s)
+                                </span>
+                              )
+                            }
                           </span>
                         </>
                       ) : (

@@ -112,6 +112,13 @@
   border-radius: 0 8px 8px 0;
 }
 
+.tableContainer table .displayWinnerPhone {
+  color: #34457e;
+  font-size: 13px;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
 
 /* Mobile */
 @media (max-width: 700px) {
