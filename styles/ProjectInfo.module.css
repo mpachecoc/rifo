@@ -170,6 +170,26 @@ div.infoContainer .riffleDetailsContent button.contactButton:hover {
   border-radius: 0 8px 8px 0;
 }
 
+.tableContainer table td.tableImage img {
+  width: 60px;
+  height: 60px;
+  border-radius: 20%;
+  object-fit: cover;
+}
+
+.tableContainer table tr.winnerRow td {
+  text-align: center;
+  border-radius: 8px;
+
+  background: linear-gradient(154.16deg, #EDFFF6 7.85%, #FFFFFF 91.03%);
+  border: 1px solid #A1E9C5;
+  color: #37C77F;
+}
+
+.tableContainer table tr.winnerRow td svg {
+  margin-right: 6px;
+}
+
 
 /* Mobile */
 @media (max-width: 700px) {
@@ -222,6 +242,20 @@ div.infoContainer .riffleDetailsContent button.contactButton:hover {
 
   .tableContainer table .hideColumn {
     display: none;
+  }
+
+  .tableContainer table td.tableImage {
+    text-align: center;
+  }
+
+  .tableContainer table td.tableImage img {
+    width: 100px;
+    height: 100px;
+  }
+
+  .tableContainer table tr.winnerRow td svg {
+    width: 26px;
+    height: 26px;
   }
 
 }

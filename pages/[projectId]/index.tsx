@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { GetStaticProps, GetStaticPaths } from 'next'
 import { useRouter } from 'next/router'
 import { FiDollarSign, FiCalendar } from 'react-icons/fi'
-import { FaWhatsapp } from 'react-icons/fa'
+import { FaWhatsapp, FaGift } from 'react-icons/fa'
 import { format } from 'date-fns'
 import es from 'date-fns/locale/es'
 
@@ -13,6 +13,13 @@ import styles from '../../styles/ProjectInfo.module.css'
 import SEO from '../../components/SEO'
 
 import placeholderImage from '../../assets/placeholder-image.png'
+
+interface TicketProps {
+  id: number
+  ci: string
+  name: string
+  ticketId: number
+}
 
 interface UserProps {
   id: number
@@ -33,6 +40,7 @@ interface ProjectProps {
     drawDate: Date
     drawDateFormatted: string
     images: Array<ImagesProps>
+    acronym: string
     User: UserProps
   }
   prizes: Array<{
@@ -40,6 +48,9 @@ interface ProjectProps {
     name: string
     description: string
     image?: string
+    imageUrl?: string
+    ticketIdFormatted?: string
+    Ticket?: TicketProps
   }>
 }
 
@@ -135,6 +146,7 @@ const ProjectInfo: React.FC<ProjectProps> = ({
               <table>
                 <thead>
                   <tr>
+                    <th></th>
                     <th className={styles.hideColumn}></th>
                     <th></th>
                   </tr>
@@ -142,10 +154,34 @@ const ProjectInfo: React.FC<ProjectProps> = ({
 
                 <tbody>
                   {prizes.map(prize => (
-                    <tr key={prize.id}>
-                      <td className={styles.hideColumn}>{prize.name}</td>
-                      <td>{prize.description}</td>
-                    </tr>
+                    <>
+                      <tr key={prize.id}>
+                        <td className={styles.tableImage}>
+                          {prize.imageUrl && (
+                            <img src={prize.imageUrl} alt={prize.image} />
+                          )}
+                        </td>
+                        <td className={styles.hideColumn}>{prize.name}</td>
+                        <td>{prize.description}</td>
+                      </tr>
+
+                      {prize.Ticket && (
+                        <tr className={styles.winnerRow}>
+                          <td colSpan={3}>
+                            <FaGift size={16} color="#12a454" />
+                            <strong>
+                              {`${project.acronym}-${prize.ticketIdFormatted}`}
+                            </strong>
+                            <br />
+                            <strong>CI: </strong>
+                            {prize.Ticket.ci}
+                            <br />
+                            <strong>Nombre: </strong>
+                            {prize.Ticket.name}
+                          </td>
+                        </tr>
+                      )}
+                    </>
                   ))}
                 </tbody>
               </table>
@@ -201,7 +237,11 @@ export const getStaticProps: GetStaticProps = async context => {
         id: image.id,
         url: `${awsUrl}/${image.name}`
       }
-    })
+    }),
+    acronym: dbProject.name
+      .split(/\s/)
+      .reduce((response, word) => (response += word.slice(0, 1)), '')
+      .toUpperCase()
   }
 
   delete project.User.email
@@ -209,17 +249,34 @@ export const getStaticProps: GetStaticProps = async context => {
   delete project.Images
 
   // Get Prizes
-  const prizes = await prisma.prize.findMany({
-    select: {
-      id: true,
-      name: true,
-      description: true,
-      image: true
-    },
+  const dbPrizes = await prisma.prize.findMany({
     where: {
       projectId: project.id
     },
+    include: {
+      Ticket: true
+    },
     take: 15
+  })
+
+  const prizes = dbPrizes.map(prize => {
+    delete prize.createdAt
+    delete prize.updatedAt
+
+    if (prize.Ticket) {
+      delete prize.Ticket.phone
+      delete prize.Ticket.projectId
+      delete prize.Ticket.createdAt
+      delete prize.Ticket.updatedAt
+    }
+
+    return {
+      ...prize,
+      imageUrl: prize.image ? `${awsUrl}/${prize.image}` : null,
+      ticketIdFormatted: prize.Ticket
+        ? String(prize.Ticket.ticketId).padStart(4, '0')
+        : ''
+    }
   })
 
   return {
