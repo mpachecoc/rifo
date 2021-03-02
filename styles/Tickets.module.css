@@ -107,6 +107,9 @@
 .ticketsContainer .winner .right p span {
   font-size: 11px;
   font-weight: 600;
+
+  cursor: pointer;
+  text-decoration: underline;
 }
 
 .ticketsContainer .ticket svg,
