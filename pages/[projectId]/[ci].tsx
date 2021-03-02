@@ -21,6 +21,7 @@ interface PrizeProps {
 
 interface TicketProps {
   projectName: string
+  projectImageUrl?: string
   tickets: Array<{
     id: number
     name: string
@@ -34,6 +35,7 @@ interface TicketProps {
 
 const Tickets: React.FC<TicketProps> = ({
   projectName,
+  projectImageUrl,
   tickets
 }: TicketProps) => {
   const [isPrizeModalOpen, setIsPrizeModalOpen] = useState(false)
@@ -80,7 +82,14 @@ const Tickets: React.FC<TicketProps> = ({
               return (
                 <div className={styles.winner} key={ticket.ticketId}>
                   <div className={styles.left}>
-                    <FaTicketAlt size={32} color="#37C77F" />
+                    {
+                      // eslint-disable-next-line multiline-ternary
+                      projectImageUrl ? (
+                        <img src={projectImageUrl} alt={projectName} />
+                      ) : (
+                        <FaTicketAlt size={32} color="#15B6D6" />
+                      )
+                    }
                     {projectName} <br />
                     {ticket.ticketNumber}
                   </div>
@@ -113,7 +122,14 @@ const Tickets: React.FC<TicketProps> = ({
               return (
                 <div className={styles.ticket} key={ticket.ticketId}>
                   <div className={styles.left}>
-                    <FaTicketAlt size={32} color="#15B6D6" />
+                    {
+                      // eslint-disable-next-line multiline-ternary
+                      projectImageUrl ? (
+                        <img src={projectImageUrl} alt={projectName} />
+                      ) : (
+                        <FaTicketAlt size={32} color="#15B6D6" />
+                      )
+                    }
                     {projectName} <br />
                     {ticket.ticketNumber}
                   </div>
@@ -149,7 +165,10 @@ export const getStaticProps: GetStaticProps = async context => {
 
   // Get ProjectId
   const project = await prisma.project.findUnique({
-    where: { slug: String(projectSlug) }
+    where: { slug: String(projectSlug) },
+    include: {
+      Images: true
+    }
   })
 
   if (!project) {
@@ -210,6 +229,10 @@ export const getStaticProps: GetStaticProps = async context => {
   return {
     props: {
       projectName: project.name,
+      projectImageUrl:
+        project.Images.length > 0
+          ? `${awsUrl}/${project.Images[0].name}`
+          : null,
       tickets
     },
     revalidate: 5
