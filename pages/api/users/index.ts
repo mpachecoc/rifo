@@ -18,6 +18,7 @@ export default async (request: NextApiRequest, response: NextApiResponse) => {
     if (checkUserExists) {
       response.statusCode = 400
       response.json({ message: 'Email address already used' })
+      return
     }
 
     // Create User

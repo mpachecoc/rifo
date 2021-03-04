@@ -30,6 +30,7 @@ export default async (request: NextApiRequest, response: NextApiResponse) => {
     if (!prize) {
       response.statusCode = 401
       response.json({ message: 'Prize Id not found' })
+      return
     }
 
     await prisma.prize.delete({

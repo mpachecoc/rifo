@@ -20,6 +20,7 @@ export default async (request: NextApiRequest, response: NextApiResponse) => {
     if (!user) {
       response.statusCode = 401
       response.json({ message: 'Incorrect email/password combination' })
+      return
     }
 
     // Check Password
@@ -28,6 +29,7 @@ export default async (request: NextApiRequest, response: NextApiResponse) => {
     if (!passwordMatched) {
       response.statusCode = 401
       response.json({ message: 'Incorrect email/password combination' })
+      return
     }
 
     delete user.password
