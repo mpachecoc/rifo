@@ -1,5 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { Project } from '@prisma/client'
+import latinize from 'latinize'
 
 import prisma from '../../../config/prismaClient'
 
@@ -17,6 +18,8 @@ export default async (request: NextApiRequest, response: NextApiResponse) => {
 
     // Generate 'slug', check if unique, add subfix accordingly
     let slug = name.replace(/\s+/g, '-').toLowerCase()
+
+    slug = latinize(slug) // Remove accents, etc. (á,ç,ê,ã)
 
     const projectExist = await prisma.project.findUnique({
       where: { slug }
